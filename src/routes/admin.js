@@ -127,6 +127,7 @@ router.delete('/staff/:id', requireAuth, requireRole('superadmin'), async (req, 
       body: { userId: target.id },
       headers: fromNodeHeaders(req.headers),
     })
+    await db.collection('doctors').deleteOne({ userId: target.id })
     res.json({ message: 'User deleted' })
   } catch (err) {
     res.status(400).json({ message: err.message })
